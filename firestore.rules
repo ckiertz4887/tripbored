@@ -1,0 +1,68 @@
+rules_version = '2';
+
+// Road Trip Arcade
+//
+// Sharing model: a game is reachable by anyone who has its URL. The game id is
+// the capability — it's a long random string, not guessable. Anyone signed in
+// (including anonymous guests) can read a game and tap cards in it. Only the
+// owner can rename, finalize, or delete it.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(game) {
+      return signedIn() && game.data.ownerUid == request.auth.uid;
+    }
+
+    // --- User profiles -------------------------------------------------
+    match /users/{uid} {
+      allow read: if signedIn();
+      allow create, update: if signedIn() && request.auth.uid == uid;
+      allow delete: if false;
+    }
+
+    // --- Games ---------------------------------------------------------
+    match /games/{gameId} {
+      allow read: if signedIn();
+      allow create: if signedIn()
+                    && request.resource.data.ownerUid == request.auth.uid
+                    && request.resource.data.status == 'active';
+
+      // Players may join (adding themselves to members) and bump activity.
+      // Only the owner may rename, finalize, or reassign ownership.
+      allow update: if signedIn() && (
+        isOwner(resource)
+        || (
+          resource.data.status == 'active'
+          && request.resource.data.ownerUid == resource.data.ownerUid
+          && request.resource.data.status == resource.data.status
+          && request.resource.data.name == resource.data.name
+        )
+      );
+
+      allow delete: if isOwner(resource);
+
+      // --- Finds: one doc per found card ------------------------------
+      // Anyone in an active game can tap/untap. Finalized games are frozen.
+      match /finds/{cardId} {
+        function game() {
+          return get(/databases/$(database)/documents/games/$(gameId));
+        }
+        allow read: if signedIn();
+        allow create, update, delete: if signedIn()
+                                      && game().data.status == 'active';
+      }
+
+      // --- Event log: append-only tap/untap history --------------------
+      match /events/{eventId} {
+        allow read: if signedIn();
+        allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
+        allow update, delete: if false;
+      }
+    }
+  }
+}
