@@ -87,24 +87,24 @@ export const CATEGORIES: Category[] = [
     label: "Other Plates",
     groups: [
       { label: "Canada", cards: [
-          { id: "intl-plates-ontario", name: "Ontario", points: 10 },
-          { id: "intl-plates-quebec", name: "Quebec", points: 10 },
-          { id: "intl-plates-british-columbia", name: "British Columbia", points: 10 },
-          { id: "intl-plates-alberta", name: "Alberta", points: 10 },
-          { id: "intl-plates-manitoba", name: "Manitoba", points: 10 },
-          { id: "intl-plates-saskatchewan", name: "Saskatchewan", points: 10 },
-          { id: "intl-plates-nova-scotia", name: "Nova Scotia", points: 10 },
-          { id: "intl-plates-new-brunswick", name: "New Brunswick", points: 10 },
-          { id: "intl-plates-newfoundland-and-labrador", name: "Newfoundland and Labrador", points: 10 },
-          { id: "intl-plates-prince-edward-island", name: "Prince Edward Island", points: 10 },
-          { id: "intl-plates-yukon", name: "Yukon", points: 10 },
-          { id: "intl-plates-northwest-territories", name: "Northwest Territories", points: 10 },
-          { id: "intl-plates-nunavut", name: "Nunavut", points: 10 },
+          { id: "intl-plates-ontario", name: "Ontario", points: 10, qualifier: "(ON)" },
+          { id: "intl-plates-quebec", name: "Quebec", points: 10, qualifier: "(QC)" },
+          { id: "intl-plates-british-columbia", name: "British Columbia", points: 10, qualifier: "(BC)" },
+          { id: "intl-plates-alberta", name: "Alberta", points: 10, qualifier: "(AB)" },
+          { id: "intl-plates-manitoba", name: "Manitoba", points: 10, qualifier: "(MB)" },
+          { id: "intl-plates-saskatchewan", name: "Saskatchewan", points: 10, qualifier: "(SK)" },
+          { id: "intl-plates-nova-scotia", name: "Nova Scotia", points: 10, qualifier: "(NS)" },
+          { id: "intl-plates-new-brunswick", name: "New Brunswick", points: 10, qualifier: "(NB)" },
+          { id: "intl-plates-newfoundland-and-labrador", name: "Newfoundland and Labrador", points: 10, qualifier: "(NL)" },
+          { id: "intl-plates-prince-edward-island", name: "Prince Edward Island", points: 10, qualifier: "(PE)" },
+          { id: "intl-plates-yukon", name: "Yukon", points: 10, qualifier: "(YT)" },
+          { id: "intl-plates-northwest-territories", name: "Northwest Territories", points: 10, qualifier: "(NT)" },
+          { id: "intl-plates-nunavut", name: "Nunavut", points: 10, qualifier: "(NU)" },
         ] },
       { label: "Mexico & Territories", cards: [
           { id: "intl-plates-mexico-any-state", name: "Mexico - any state", points: 15, qualifier: "any state" },
-          { id: "intl-plates-puerto-rico", name: "Puerto Rico", points: 25 },
-          { id: "intl-plates-us-virgin-islands", name: "US Virgin Islands", points: 50, rare: true },
+          { id: "intl-plates-puerto-rico", name: "Puerto Rico", points: 25, qualifier: "(PR)" },
+          { id: "intl-plates-us-virgin-islands", name: "US Virgin Islands", points: 50, rare: true, qualifier: "(VI)" },
         ] },
     ],
   },
@@ -112,16 +112,12 @@ export const CATEGORIES: Category[] = [
     id: "responders",
     label: "Emergency",
     groups: [
-      { label: "Police", cards: [
+      { label: null, cards: [
           { id: "responders-police-lights-off", name: "Police - lights off", points: 5, qualifier: "lights off" },
           { id: "responders-police-lights-siren", name: "Police - lights & siren", points: 10, qualifier: "lights & siren" },
           { id: "responders-police-car-pulled-over", name: "Police - car pulled over", points: 10, qualifier: "car pulled over" },
-        ] },
-      { label: "Ambulance", cards: [
           { id: "responders-ambulance-lights-off", name: "Ambulance - lights off", points: 5, qualifier: "lights off" },
           { id: "responders-ambulance-lights-siren", name: "Ambulance - lights & siren", points: 10, qualifier: "lights & siren" },
-        ] },
-      { label: "Fire", cards: [
           { id: "responders-fire-truck-lights-off", name: "Fire truck - lights off", points: 5, qualifier: "lights off" },
           { id: "responders-fire-truck-lights-siren", name: "Fire truck - lights & siren", points: 10, qualifier: "lights & siren" },
         ] },
@@ -132,7 +128,7 @@ export const CATEGORIES: Category[] = [
     label: "Vehicles",
     groups: [
       { label: "Cars & Motorcycles", cards: [
-          { id: "vehicles-motorcycle-standard", name: "Motorcycle - standard", points: 5, qualifier: "standard" },
+          { id: "vehicles-motorcycle", name: "Motorcycle", points: 5 },
           { id: "vehicles-motorcycle-3-wheeled", name: "Motorcycle - 3-wheeled", points: 10, qualifier: "3-wheeled" },
           { id: "vehicles-motorcycle-with-sidecar", name: "Motorcycle - with sidecar", points: 25, qualifier: "with sidecar" },
           { id: "vehicles-dirt-bike", name: "Dirt bike", points: 5 },
@@ -143,12 +139,15 @@ export const CATEGORIES: Category[] = [
           { id: "vehicles-classic-vw-beetle", name: "Classic VW Beetle", points: 15 },
           { id: "vehicles-classic-vw-microbus", name: "Classic VW Microbus", points: 15 },
           { id: "vehicles-barcycle-party-bike", name: "Barcycle/party bike", points: 15 },
+          { id: "vehicles-smart-car", name: "Smart Car", points: 10 },
+          { id: "vehicles-bike-rider", name: "Bike rider", points: 5 },
         ] },
       { label: "Trucks & Vans", cards: [
           { id: "vehicles-delivery-van", name: "Delivery van", points: 5 },
           { id: "vehicles-mail-truck", name: "Mail truck", points: 5 },
           { id: "vehicles-garbage-truck", name: "Garbage truck", points: 5 },
           { id: "vehicles-dump-truck", name: "Dump truck", points: 5 },
+          { id: "vehicles-snow-plow", name: "Snow plow", points: 10 },
           { id: "vehicles-cement-mixer", name: "Cement mixer", points: 5 },
           { id: "vehicles-tanker-oil-truck", name: "Tanker/oil truck", points: 5 },
           { id: "vehicles-tow-truck", name: "Tow truck", points: 5 },
@@ -163,6 +162,11 @@ export const CATEGORIES: Category[] = [
           { id: "vehicles-armored-truck", name: "Armored truck", points: 15 },
           { id: "vehicles-military-vehicle", name: "Military vehicle", points: 15 },
         ] },
+      { label: "Rideshare & Transit", cards: [
+          { id: "vehicles-taxi", name: "Taxi", points: 5 },
+          { id: "vehicles-uber", name: "Uber", points: 5 },
+          { id: "vehicles-lyft", name: "Lyft", points: 5 },
+        ] },
       { label: "Buses", cards: [
           { id: "vehicles-school-bus", name: "School bus", points: 5 },
           { id: "vehicles-city-bus", name: "City bus", points: 5 },
@@ -172,7 +176,6 @@ export const CATEGORIES: Category[] = [
       { label: "Towing & Trailers", cards: [
           { id: "vehicles-boat-on-trailer", name: "Boat on trailer", points: 5 },
           { id: "vehicles-jet-ski-on-trailer", name: "Jet ski on trailer", points: 5 },
-          { id: "vehicles-boat-trailer-no-boat", name: "Boat trailer - no boat", points: 15, qualifier: "no boat" },
           { id: "vehicles-camper-trailer", name: "Camper trailer", points: 5 },
           { id: "vehicles-airstream-trailer", name: "Airstream trailer", points: 10 },
           { id: "vehicles-rv-motorhome", name: "RV/motorhome", points: 5 },
@@ -194,6 +197,7 @@ export const CATEGORIES: Category[] = [
           { id: "vehicles-helicopter", name: "Helicopter", points: 15 },
           { id: "vehicles-train", name: "Train", points: 5 },
           { id: "vehicles-barge", name: "Barge", points: 10 },
+          { id: "vehicles-cruise-ship", name: "Cruise ship", points: 15 },
         ] },
       { label: "Quirks & Damage", cards: [
           { id: "vehicles-car-on-side-of-highway", name: "Car on side of highway", points: 10 },
@@ -251,6 +255,7 @@ export const CATEGORIES: Category[] = [
           { id: "rare-bentley", name: "Bentley", points: 25 },
           { id: "rare-rolls-royce", name: "Rolls-Royce", points: 25 },
           { id: "rare-aston-martin", name: "Aston Martin", points: 25 },
+          { id: "rare-maserati", name: "Maserati", points: 15 },
           { id: "rare-mclaren", name: "McLaren", points: 50, rare: true },
         ] },
       { label: "Unusual & Novelty", cards: [
@@ -290,15 +295,13 @@ export const CATEGORIES: Category[] = [
           { id: "other-cars-my-other-car-is", name: "'My other car is...'", points: 5 },
           { id: "other-cars-got", name: "'Got ___?'", points: 5 },
         ] },
-      { label: "Dashboard & Mirror", cards: [
+      { label: "Dashboard, Mirror & Windows", cards: [
           { id: "other-cars-fuzzy-dice", name: "Fuzzy dice", points: 5 },
           { id: "other-cars-rubber-ducky", name: "Rubber ducky", points: 5 },
           { id: "other-cars-waving-cat", name: "Waving cat", points: 5 },
           { id: "other-cars-rosary-beads", name: "Rosary beads", points: 5 },
           { id: "other-cars-flower", name: "Flower", points: 5 },
           { id: "other-cars-hawaiian-lei", name: "Hawaiian lei", points: 5 },
-        ] },
-      { label: "Windows & Glass", cards: [
           { id: "other-cars-sun-shield-in-car", name: "Sun shield in car", points: 5 },
           { id: "other-cars-marker-window-writing", name: "Marker window writing", points: 5 },
         ] },
@@ -480,8 +483,7 @@ export const CATEGORIES: Category[] = [
           { id: "signs-drive-through-a-state-capital", name: "Drive through a state capital", points: 25 },
         ] },
       { label: "Word Play", cards: [
-          { id: "signs-real-word-spelled-out-on-a-plate", name: "Real word spelled out on a plate", points: 10 },
-          { id: "signs-unnecessary-apostrophe-on-a-sign", name: "Unnecessary apostrophe on a sign", points: 5 },
+          { id: "signs-real-word-on-license-plate-3-letters", name: "Real word on license plate (3+ letters)", points: 10, qualifier: "(3+ letters)" },
           { id: "signs-same-name-as-someone-in-the-car", name: "Same name as someone in the car", points: 5 },
         ] },
     ],
@@ -512,14 +514,12 @@ export const CATEGORIES: Category[] = [
           { id: "town-names-falls", name: "-falls", points: 5 },
           { id: "town-names-lane", name: "-lane", points: 5 },
         ] },
-      { label: "Wildcard", cards: [
-          { id: "town-names-same-town-name-in-a-different-state", name: "Same town name in a different state", points: 5 },
-        ] },
     ],
   },
   {
     id: "street-types",
     label: "Street Types",
+    hidden: true,
     groups: [
       { label: "Very Common", cards: [
           { id: "street-types-street", name: "Street", points: 5 },
@@ -723,5 +723,7 @@ export function splitLabel(card: Card): [string, string | null] {
   if (!card.qualifier) return [card.name, null];
   const d = card.name.indexOf(" - ");
   if (d > -1) return [card.name.slice(0, d), card.qualifier];
-  return [card.name.slice(0, card.name.length - card.qualifier.length).trim(), card.qualifier];
+  if (card.name.endsWith(card.qualifier))
+    return [card.name.slice(0, card.name.length - card.qualifier.length).trim(), card.qualifier];
+  return [card.name, card.qualifier];
 }

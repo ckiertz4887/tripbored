@@ -38,12 +38,12 @@ export function SearchBar({
           </button>
         )}
       </div>
-      <button className={allOpen ? "bulk-btn inactive" : "bulk-btn"} onClick={onExpandAll}>
+      <button className={allOpen ? "btn-tool btn-tool-bulk btn-tool-inactive" : "btn-tool btn-tool-bulk"} onClick={onExpandAll}>
         Expand
         <br />
         all
       </button>
-      <button className={allClosed ? "bulk-btn inactive" : "bulk-btn"} onClick={onCollapseAll}>
+      <button className={allClosed ? "btn-tool btn-tool-bulk btn-tool-inactive" : "btn-tool btn-tool-bulk"} onClick={onCollapseAll}>
         Collapse
         <br />
         all

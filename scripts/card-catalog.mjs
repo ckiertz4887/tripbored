@@ -9,7 +9,7 @@
  * games have been played, write a migration alongside the change.
  */
 
-/** @typedef {[name: string, points: number]} CardTuple */
+/** @typedef {[name: string, points: number, qualifier?: string]} CardTuple */
 /** @typedef {{ label: string | null, cards: CardTuple[] }} GroupDef */
 
 export const US_STATES = [
@@ -39,26 +39,22 @@ export const PACKS = [
     id: "intl-plates", label: "Other Plates",
     groups: [
       { label: "Canada", cards: [
-        ["Ontario", 10], ["Quebec", 10], ["British Columbia", 10], ["Alberta", 10],
-        ["Manitoba", 10], ["Saskatchewan", 10], ["Nova Scotia", 10], ["New Brunswick", 10],
-        ["Newfoundland and Labrador", 10], ["Prince Edward Island", 10], ["Yukon", 10],
-        ["Northwest Territories", 10], ["Nunavut", 10],
+        ["Ontario", 10, "(ON)"], ["Quebec", 10, "(QC)"], ["British Columbia", 10, "(BC)"], ["Alberta", 10, "(AB)"],
+        ["Manitoba", 10, "(MB)"], ["Saskatchewan", 10, "(SK)"], ["Nova Scotia", 10, "(NS)"], ["New Brunswick", 10, "(NB)"],
+        ["Newfoundland and Labrador", 10, "(NL)"], ["Prince Edward Island", 10, "(PE)"], ["Yukon", 10, "(YT)"],
+        ["Northwest Territories", 10, "(NT)"], ["Nunavut", 10, "(NU)"],
       ]},
       { label: "Mexico & Territories", cards: [
-        ["Mexico - any state", 15], ["Puerto Rico", 25], ["US Virgin Islands", 50],
+        ["Mexico - any state", 15], ["Puerto Rico", 25, "(PR)"], ["US Virgin Islands", 50, "(VI)"],
       ]},
     ],
   },
   {
     id: "responders", label: "Emergency",
     groups: [
-      { label: "Police", cards: [
+      { label: null, cards: [
         ["Police - lights off", 5], ["Police - lights & siren", 10], ["Police - car pulled over", 10],
-      ]},
-      { label: "Ambulance", cards: [
         ["Ambulance - lights off", 5], ["Ambulance - lights & siren", 10],
-      ]},
-      { label: "Fire", cards: [
         ["Fire truck - lights off", 5], ["Fire truck - lights & siren", 10],
       ]},
     ],
@@ -67,23 +63,27 @@ export const PACKS = [
     id: "vehicles", label: "Vehicles",
     groups: [
       { label: "Cars & Motorcycles", cards: [
-        ["Motorcycle - standard", 5], ["Motorcycle - 3-wheeled", 10], ["Motorcycle - with sidecar", 25],
+        ["Motorcycle", 5], ["Motorcycle - 3-wheeled", 10], ["Motorcycle - with sidecar", 25],
         ["Dirt bike", 5], ["ATV", 10], ["Convertible - top down", 10],
         ["Jeep - top down", 10], ["Jeep - doors off", 25],
         ["Classic VW Beetle", 15], ["Classic VW Microbus", 15], ["Barcycle/party bike", 15],
+        ["Smart Car", 10], ["Bike rider", 5],
       ]},
       { label: "Trucks & Vans", cards: [
         ["Delivery van", 5], ["Mail truck", 5], ["Garbage truck", 5], ["Dump truck", 5],
-        ["Cement mixer", 5], ["Tanker/oil truck", 5], ["Tow truck", 5], ["Car carrying truck", 5],
-        ["Construction vehicle", 5], ["Log truck", 10], ["Tandem truck", 10],
+        ["Snow plow", 10], ["Cement mixer", 5], ["Tanker/oil truck", 5], ["Tow truck", 5],
+        ["Car carrying truck", 5], ["Construction vehicle", 5], ["Log truck", 10], ["Tandem truck", 10],
         ["Semi - with trailer", 5], ["Semi - without trailer", 15],
         ["Food truck", 10], ["Ice cream truck", 15], ["Armored truck", 15], ["Military vehicle", 15],
+      ]},
+      { label: "Rideshare & Transit", cards: [
+        ["Taxi", 5], ["Uber", 5], ["Lyft", 5],
       ]},
       { label: "Buses", cards: [
         ["School bus", 5], ["City bus", 5], ["Shuttle bus", 5], ["Coach/charter bus", 5],
       ]},
       { label: "Towing & Trailers", cards: [
-        ["Boat on trailer", 5], ["Jet ski on trailer", 5], ["Boat trailer - no boat", 15],
+        ["Boat on trailer", 5], ["Jet ski on trailer", 5],
         ["Camper trailer", 5], ["Airstream trailer", 10], ["RV/motorhome", 5], ["Horse trailer", 10],
         ["Modular home being towed", 20], ["Oversize/wide load", 15],
       ]},
@@ -92,7 +92,7 @@ export const PACKS = [
         ["Kayak", 5], ["Canoe", 5], ["Mattress on roof", 10],
       ]},
       { label: "Air, Rail & Water", cards: [
-        ["Plane", 5], ["Plane - banner in tow", 15], ["Helicopter", 15], ["Train", 5], ["Barge", 10],
+        ["Plane", 5], ["Plane - banner in tow", 15], ["Helicopter", 15], ["Train", 5], ["Barge", 10], ["Cruise ship", 15],
       ]},
       { label: "Quirks & Damage", cards: [
         ["Car on side of highway", 10], ["Car missing spare tire", 20], ["Car driving on spare tire", 15],
@@ -123,7 +123,7 @@ export const PACKS = [
     groups: [
       { label: "Exotic & Luxury", cards: [
         ["Ferrari", 25], ["Lamborghini", 25], ["Bentley", 25],
-        ["Rolls-Royce", 25], ["Aston Martin", 25], ["McLaren", 50],
+        ["Rolls-Royce", 25], ["Aston Martin", 25], ["Maserati", 15], ["McLaren", 50],
       ]},
       { label: "Unusual & Novelty", cards: [
         ["Limo", 15], ["Golf cart", 15], ["Hearse", 25], ["Slingshot", 25],
@@ -142,11 +142,9 @@ export const PACKS = [
         ["Makes you laugh", 5], ["Makes you upset", 5], ["'Honk if...'", 5],
         ["'I brake for...'", 5], ["'My other car is...'", 5], ["'Got ___?'", 5],
       ]},
-      { label: "Dashboard & Mirror", cards: [
+      { label: "Dashboard, Mirror & Windows", cards: [
         ["Fuzzy dice", 5], ["Rubber ducky", 5], ["Waving cat", 5],
         ["Rosary beads", 5], ["Flower", 5], ["Hawaiian lei", 5],
-      ]},
-      { label: "Windows & Glass", cards: [
         ["Sun shield in car", 5], ["Marker window writing", 5],
       ]},
       { label: "People & Gestures", cards: [
@@ -244,8 +242,8 @@ export const PACKS = [
         ["Construction zone", 5], ["Train tracks", 5], ["Drive through a state capital", 25],
       ]},
       { label: "Word Play", cards: [
-        ["Real word spelled out on a plate", 10],
-        ["Unnecessary apostrophe on a sign", 5], ["Same name as someone in the car", 5],
+        ["Real word on license plate (3+ letters)", 10],
+        ["Same name as someone in the car", 5],
       ]},
     ],
   },
@@ -262,13 +260,10 @@ export const PACKS = [
         ["-ville", 5], ["-boro/-borough", 5], ["-town/-ton/-towne", 5],
         ["-bury/-berry", 5], ["-field", 5], ["-bridge", 5], ["-valley", 5], ["-falls", 5], ["-lane", 5],
       ]},
-      { label: "Wildcard", cards: [
-        ["Same town name in a different state", 5],
-      ]},
     ],
   },
   {
-    id: "street-types", label: "Street Types",
+    id: "street-types", label: "Street Types", hidden: true,
     groups: [
       { label: "Very Common", cards: [
         ["Street", 5], ["Road", 5], ["Drive", 5], ["Avenue", 5], ["Lane", 5],

@@ -38,8 +38,9 @@ function jsString(s) {
   return JSON.stringify(s);
 }
 
-function buildCard(id, name, points) {
-  const [, qualifier] = splitLabel(name);
+function buildCard(id, name, points, explicitQualifier) {
+  const [, inferredQualifier] = splitLabel(name);
+  const qualifier = explicitQualifier ?? inferredQualifier;
   const fields = [`id: ${jsString(id)}`, `name: ${jsString(name)}`, `points: ${points}`];
   if (points >= RARE_THRESHOLD) fields.push("rare: true");
   if (qualifier) fields.push(`qualifier: ${jsString(qualifier)}`);
@@ -48,7 +49,7 @@ function buildCard(id, name, points) {
 
 function buildGroup(pid, group) {
   const cards = group.cards
-    .map(([name, points]) => buildCard(`${pid}-${slug(name)}`, name, points))
+    .map(([name, points, qual]) => buildCard(`${pid}-${slug(name)}`, name, points, qual))
     .join(",\n          ");
   const label = group.label === null ? "null" : jsString(group.label);
   return `      { label: ${label}, cards: [\n          ${cards},\n        ] }`;
@@ -148,7 +149,9 @@ export function splitLabel(card: Card): [string, string | null] {
   if (!card.qualifier) return [card.name, null];
   const d = card.name.indexOf(" - ");
   if (d > -1) return [card.name.slice(0, d), card.qualifier];
-  return [card.name.slice(0, card.name.length - card.qualifier.length).trim(), card.qualifier];
+  if (card.name.endsWith(card.qualifier))
+    return [card.name.slice(0, card.name.length - card.qualifier.length).trim(), card.qualifier];
+  return [card.name, card.qualifier];
 }
 `;
 

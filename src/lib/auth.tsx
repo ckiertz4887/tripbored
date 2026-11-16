@@ -18,9 +18,7 @@ import { auth, db, googleProvider } from "./firebase";
 
 type AuthState = {
   user: User | null;
-  /** True while we're still figuring out who the user is. */
   loading: boolean;
-  /** Anonymous guests can play but get prompted to save their history. */
   isGuest: boolean;
   signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;

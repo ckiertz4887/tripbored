@@ -6,6 +6,7 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  increment,
   limit,
   onSnapshot,
   orderBy,
@@ -18,8 +19,12 @@ import {
 } from "firebase/firestore";
 import { db } from "./firebase";
 import { CARD_INDEX, TOTAL_POSSIBLE } from "../data/cards";
+import { ROUTE_OPTIONS } from "../data/plate-geo";
+import { computePlatePoints } from "./plateScoring";
 
 export type GameStatus = "active" | "finalized";
+
+export type GameRoute = { origin: string; dest: string };
 
 export type Game = {
   id: string;
@@ -28,6 +33,7 @@ export type Game = {
   status: GameStatus;
   memberIds: string[];
   members: Record<string, { name: string; photoURL: string | null }>;
+  route?: GameRoute;
   createdAt?: Timestamp;
   updatedAt?: Timestamp;
   finalizedAt?: Timestamp;
@@ -131,6 +137,14 @@ export function useGame(gameId: string | undefined) {
     [finds]
   );
 
+  const platePoints = useMemo((): Record<string, number> => {
+    if (!game?.route) return {};
+    const o = ROUTE_OPTIONS.find((r) => r.code === game.route!.origin);
+    const d = ROUTE_OPTIONS.find((r) => r.code === game.route!.dest);
+    if (!o || !d) return {};
+    return computePlatePoints(o.lat, o.lng, d.lat, d.lng);
+  }, [game?.route]);
+
   /** Per-player totals, for shared games. */
   const byPlayer = useMemo(() => {
     const totals: Record<string, { name: string; score: number; count: number }> = {};
@@ -142,10 +156,15 @@ export function useGame(gameId: string | undefined) {
     return totals;
   }, [finds]);
 
-  return { game, finds, score, byPlayer, loading, missing, possible: TOTAL_POSSIBLE };
+  return { game, finds, score, byPlayer, loading, missing, possible: TOTAL_POSSIBLE, platePoints };
 }
 
-export function useCardActions(gameId: string | undefined, uid: string | undefined, name: string) {
+export function useCardActions(
+  gameId: string | undefined,
+  uid: string | undefined,
+  name: string,
+  platePoints: Record<string, number> = {}
+) {
   /**
    * Toggling writes the find doc and an append-only event. The event log is
    * what makes undo and "who spotted it" possible; the find doc is what the
@@ -157,6 +176,7 @@ export function useCardActions(gameId: string | undefined, uid: string | undefin
       if (!gameId || !uid) return;
       const card = CARD_INDEX[cardId];
       if (!card) return;
+      const points = platePoints[cardId] ?? card.points;
 
       const findRef = doc(db, "games", gameId, "finds", cardId);
       if (currentlyFound) {
@@ -164,7 +184,7 @@ export function useCardActions(gameId: string | undefined, uid: string | undefin
       } else {
         await setDoc(findRef, {
           cardId,
-          points: card.points,
+          points,
           uid,
           name,
           // Written as a FieldValue sentinel; reads back as a Timestamp.
@@ -175,14 +195,21 @@ export function useCardActions(gameId: string | undefined, uid: string | undefin
       void addDoc(collection(db, "games", gameId, "events"), {
         type: currentlyFound ? "untap" : "tap",
         cardId,
-        points: card.points,
+        points,
         uid,
         name,
         at: serverTimestamp(),
       });
       void updateDoc(doc(db, "games", gameId), { updatedAt: serverTimestamp() });
+
+      const delta = currentlyFound ? -1 : 1;
+      const pointsDelta = currentlyFound ? -points : points;
+      void setDoc(doc(db, "users", uid), {
+        lifetimeFinds: increment(delta),
+        lifetimeScore: increment(pointsDelta),
+      }, { merge: true });
     },
-    [gameId, uid, name]
+    [gameId, uid, name, platePoints]
   );
 
   /** Reverses this player's most recent action in the game. */
@@ -218,6 +245,13 @@ export async function finalizeGame(gameId: string, finalScore: number) {
     status: "finalized" satisfies GameStatus,
     finalScore,
     finalizedAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  });
+}
+
+export async function setRoute(gameId: string, origin: string, dest: string) {
+  await updateDoc(doc(db, "games", gameId), {
+    route: { origin, dest },
     updatedAt: serverTimestamp(),
   });
 }

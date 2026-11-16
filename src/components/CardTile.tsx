@@ -1,15 +1,4 @@
-import { useRef } from "react";
 import { COLOR_SWATCHES, splitLabel, type Card, type Category } from "../data/cards";
-
-/**
- * Distance in px the pointer may drift between down and up and still count as
- * a tap. Below this, a finger resting while the list scrolls won't flip a card;
- * above it, the gesture is a scroll and we ignore it. This is the fix for the
- * beta finding that scrolling was registering as card taps.
- */
-const TAP_SLOP = 10;
-/** A press longer than this is treated as a deliberate hold, not a tap. */
-const TAP_TIMEOUT_MS = 700;
 
 type Props = {
   card: Card;
@@ -19,6 +8,7 @@ type Props = {
   locked?: boolean;
   highlight?: string;
   onToggle: () => void;
+  points?: number;
 };
 
 function Highlighted({ text, term }: { text: string; term?: string }) {
@@ -42,25 +32,11 @@ export function CardTile({
   locked,
   highlight,
   onToggle,
+  points,
 }: Props) {
-  const start = useRef<{ x: number; y: number; t: number } | null>(null);
-
-  function onPointerDown(e: React.PointerEvent) {
-    start.current = { x: e.clientX, y: e.clientY, t: Date.now() };
-  }
-
-  function onPointerUp(e: React.PointerEvent) {
-    const s = start.current;
-    start.current = null;
-    if (!s || locked) return;
-    const moved = Math.hypot(e.clientX - s.x, e.clientY - s.y);
-    if (moved > TAP_SLOP) return; // scrolling, not tapping
-    if (Date.now() - s.t > TAP_TIMEOUT_MS) return; // long press
-    onToggle();
-  }
-
   const [primary, qualifier] = splitLabel(card);
   const swatch = category.style === "swatch" ? COLOR_SWATCHES[card.name] : undefined;
+  const displayPoints = points ?? card.points;
 
   return (
     <div
@@ -74,11 +50,9 @@ export function CardTile({
         .join(" ")}
       role="checkbox"
       aria-checked={found}
-      aria-label={`${card.name}, ${card.points} points`}
+      aria-label={`${card.name}, ${displayPoints} points`}
       tabIndex={locked ? -1 : 0}
-      onPointerDown={onPointerDown}
-      onPointerUp={onPointerUp}
-      onPointerCancel={() => (start.current = null)}
+      onClick={locked ? undefined : onToggle}
       onKeyDown={(e) => {
         if (locked) return;
         if (e.key === "Enter" || e.key === " ") {
@@ -121,7 +95,7 @@ export function CardTile({
         </div>
       )}
 
-      <div className="points-chip">{card.points} pts</div>
+      <div className="points-chip">{displayPoints} pts</div>
 
       {found && (
         <div className="stamp" title={foundBy ? `Spotted by ${foundBy}` : undefined}>
