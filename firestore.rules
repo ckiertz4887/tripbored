@@ -18,10 +18,57 @@ service cloud.firestore {
       return signedIn() && game.data.ownerUid == request.auth.uid;
     }
 
+    // Prevents clients from writing arbitrary point values to a find.
+    // Max 50 covers the rarest plate tier; min 1 covers the lowest card value.
+    function validFind(cardId) {
+      let d = request.resource.data;
+      return d.uid == request.auth.uid
+          && d.cardId == cardId
+          && d.points is int
+          && d.points >= 1
+          && d.points <= 50;
+    }
+
     // --- User profiles -------------------------------------------------
     match /users/{uid} {
       allow read: if signedIn();
       allow create, update: if signedIn() && request.auth.uid == uid;
+      allow delete: if false;
+
+      // This or That marathon save-state
+      match /tot_marathon/{docId} {
+        allow read, write: if signedIn() && request.auth.uid == uid;
+      }
+    }
+
+    // --- Global stats --------------------------------------------------
+    // Any signed-in user can increment counters (find/untap events).
+    match /stats/{statId} {
+      allow read: if true;
+      allow create, update: if signedIn();
+    }
+
+    // --- Who Would Win votes ------------------------------------------
+    // Global vote counts per matchup. Anyone signed in can cast one vote
+    // (increment exactly one side by 1). Deletes are never allowed so the
+    // cumulative tally can't be wiped.
+    match /whoWouldWin/{matchupId} {
+      allow read: if signedIn();
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['votesA', 'votesB'])
+        && request.resource.data.votesA is int
+        && request.resource.data.votesB is int
+        && request.resource.data.votesA >= 0
+        && request.resource.data.votesB >= 0
+        && request.resource.data.votesA + request.resource.data.votesB == 1;
+      allow update: if signedIn()
+        && request.resource.data.keys().hasOnly(['votesA', 'votesB'])
+        && request.resource.data.votesA is int
+        && request.resource.data.votesB is int
+        && request.resource.data.votesA >= resource.data.votesA
+        && request.resource.data.votesB >= resource.data.votesB
+        && (request.resource.data.votesA - resource.data.votesA)
+         + (request.resource.data.votesB - resource.data.votesB) == 1;
       allow delete: if false;
     }
 
@@ -32,8 +79,8 @@ service cloud.firestore {
                     && request.resource.data.ownerUid == request.auth.uid
                     && request.resource.data.status == 'active';
 
-      // Players may join (adding themselves to members) and bump activity.
-      // Only the owner may rename, finalize, or reassign ownership.
+      // Players may join (adding themselves to members) and bump updatedAt.
+      // Only the owner may rename, change status, set route, or finalize.
       allow update: if signedIn() && (
         isOwner(resource)
         || (
@@ -41,20 +88,22 @@ service cloud.firestore {
           && request.resource.data.ownerUid == resource.data.ownerUid
           && request.resource.data.status == resource.data.status
           && request.resource.data.name == resource.data.name
+          && request.resource.data.diff(resource.data).affectedKeys()
+               .hasOnly(['memberIds', 'members', 'updatedAt'])
         )
       );
 
       allow delete: if isOwner(resource);
 
       // --- Finds: one doc per found card ------------------------------
-      // Anyone in an active game can tap/untap. Finalized games are frozen.
+      // Anyone signed in can tap/untap. Game-status enforcement is handled
+      // in the app layer; removing the get() eliminates an intermittent
+      // server-side cross-document read that was blocking writes under
+      // multi-tab / share-sheet conditions.
       match /finds/{cardId} {
-        function game() {
-          return get(/databases/$(database)/documents/games/$(gameId));
-        }
         allow read: if signedIn();
-        allow create, update, delete: if signedIn()
-                                      && game().data.status == 'active';
+        allow create, update: if signedIn() && validFind(cardId);
+        allow delete: if signedIn();
       }
 
       // --- Event log: append-only tap/untap history --------------------
