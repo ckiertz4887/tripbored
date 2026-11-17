@@ -25,12 +25,11 @@
   --lcd-bg: #0b1a10;
   --lcd-on: #4dff7a;
 
-  /* Name It (A–Z) card faces — ivory cardstock with two ink colors, the way
-     a real deck tells its two card types apart by color rather than shape.
-     Deliberately not the same hue as --red: that color means RARE, nowhere else. */
-  --card-face: #faf3e2;
-  --card-ink-a: var(--navy);
-  --card-ink-b: #8a5416;
+  /* Name It (A–Z) card faces — dark arcade style matching the rest of the UI.
+     card-ink-a is the category text color, card-ink-b is the large letter color. */
+  --card-face: #0f1a2e;
+  --card-ink-a: #ffffff;
+  --card-ink-b: #feef02;
 }
 
 [data-theme="dark"] {
@@ -46,9 +45,9 @@
   --text: #dce8f8;
   --text-secondary: #7a9dc8;
   --text-faint: #4a6a90;
-  --card-face: #252c3f;
-  --card-ink-a: #b8d0f0;
-  --card-ink-b: #c8a050;
+  --card-face: #0f1a2e;
+  --card-ink-a: #ffffff;
+  --card-ink-b: #feef02;
 }
 
 * { box-sizing: border-box; }
@@ -1532,7 +1531,7 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
   aspect-ratio: 5 / 7;
   min-height: 0;
   border: none;
-  border-radius: 16px;
+  border-radius: 0;
   padding: 0;
   background: none;
   box-shadow:
@@ -1546,7 +1545,7 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
 .cl-deck-face {
   position: absolute;
   inset: 0;
-  border-radius: 16px;
+  border-radius: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1577,7 +1576,7 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
   background-image:
     repeating-linear-gradient(45deg, rgba(255,255,255,0.07) 0 2px, transparent 2px 11px),
     repeating-linear-gradient(-45deg, rgba(255,255,255,0.07) 0 2px, transparent 2px 11px);
-  border-radius: 16px;
+  border-radius: 0;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35), inset 0 0 0 7px var(--navy), inset 0 0 0 8px rgba(255, 255, 255, 0.35);
 }
 .cl-deck::before { transform: rotate(-5deg) translate(-5px, 4px); }
@@ -1600,9 +1599,9 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
   background-image: none;
   color: var(--card-ink-a);
   box-shadow:
-    inset 0 0 0 1px rgba(0, 0, 0, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18),
     inset 0 0 0 7px var(--card-face),
-    inset 0 0 0 8px rgba(0, 0, 0, 0.12);
+    inset 0 0 0 8px rgba(255, 255, 255, 0.18);
 }
 .cl-deck-letter.cl-deck-faceup .cl-deck-face { color: var(--card-ink-b); }
 
@@ -2194,18 +2193,23 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
 
 .tot-cat-count {
   font-size: 11px;
-  color: #6a90b8;
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .tot-cat-adult {
+  display: inline-block;
   margin-left: 6px;
-  padding: 1px 5px;
-  font-size: 9px;
-  font-weight: 900;
+  padding: 2px 5px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  background: rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.04em;
+  background: #070707;
+  color: #feef02;
+  border: 1px solid #feef02;
   vertical-align: middle;
+  line-height: 1.4;
 }
 
 .tot-bye-note {
@@ -2497,6 +2501,7 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
   background: #0f1a2e;
   border: 3px solid #070707;
   box-shadow: 4px 4px 0 #070707;
+  border-radius: 0;
   cursor: pointer;
   font-family: inherit;
   text-align: left;
@@ -2616,7 +2621,8 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
   padding: 13px 14px;
   background: #0f1a2e;
   border: 3px solid #070707;
-  box-shadow: 3px 3px 0 #070707;
+  box-shadow: 4px 4px 0 #070707;
+  border-radius: 0;
   cursor: grab;
   user-select: none;
   -webkit-user-select: none;
@@ -2646,13 +2652,14 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
   height: 24px;
   background: #12192a;
   border: 2px solid #070707;
-  color: #aec4d8;
+  color: #feef02;
   font-family: 'Press Start 2P', monospace;
   font-size: 8px;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 0;
 }
 .lu-item-correct .lu-rank { background: #58e329; color: #070707; border-color: #070707; }
 .lu-item-wrong .lu-rank { background: #c62828; color: #fff; border-color: #070707; }

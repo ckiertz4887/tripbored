@@ -10,6 +10,7 @@ import {
   type DragEndEvent,
 } from "@dnd-kit/core";
 import {
+  arrayMove,
   SortableContext,
   verticalListSortingStrategy,
   useSortable,
@@ -317,7 +318,6 @@ export function LineUp() {
     });
   }
 
-  // Swap the two endpoints directly — no shifting of items in between
   const handleDragEnd = useCallback((event: DragEndEvent) => {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
@@ -325,9 +325,7 @@ export function LineUp() {
       if (!prev) return prev;
       const oldIdx = prev.order.indexOf(active.id as string);
       const newIdx = prev.order.indexOf(over.id as string);
-      const newOrder = [...prev.order];
-      [newOrder[oldIdx], newOrder[newIdx]] = [newOrder[newIdx], newOrder[oldIdx]];
-      return { ...prev, order: newOrder, checking: false };
+      return { ...prev, order: arrayMove(prev.order, oldIdx, newIdx), checking: false };
     });
   }, []);
 
