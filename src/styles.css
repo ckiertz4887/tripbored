@@ -58,8 +58,8 @@ body {
   margin: 0;
   background: #0c1119;
   color: #fff;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 14px;
+  font-family: 'VT323', monospace;
+  font-size: 18px;
   -webkit-text-size-adjust: 100%;
   /* Prevents the browser treating a fast card tap as a double-tap zoom. */
   touch-action: manipulation;
@@ -277,9 +277,9 @@ button { font-family: inherit; }
 }
 
 .spot-desc {
-  font-size: 11px;
+  font-size: 17px;
   color: #6a90b8;
-  line-height: 1.6;
+  line-height: 1.4;
   display: block;
 }
 
@@ -314,7 +314,7 @@ button { font-family: inherit; }
 }
 .resume-row-new:active { transform: translate(1px, 1px); }
 
-.resume-name-new { font-size: 13px; color: #aec4d8; }
+.resume-name-new { font-size: 18px; color: #aec4d8; }
 
 .resume-go-new {
   font-family: 'Press Start 2P', monospace;
@@ -389,9 +389,9 @@ button { font-family: inherit; }
 }
 
 .game-tile-desc {
-  font-size: 10px;
+  font-size: 16px;
   color: #5a7a9a;
-  line-height: 1.5;
+  line-height: 1.3;
   display: block;
   flex: 1;
 }
@@ -436,7 +436,7 @@ button { font-family: inherit; }
 }
 
 .dialog-message {
-  font-size: 12px;
+  font-size: 18px;
   color: #6a90b8;
   line-height: 1.6;
   margin: 0 0 20px;
@@ -501,7 +501,7 @@ button { font-family: inherit; }
   .games-section-label { font-size: 10px; margin-bottom: 24px; }
   .games-grid { grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
   .game-tile-name { font-size: 8px; }
-  .game-tile-desc { font-size: 11px; }
+  .game-tile-desc { font-size: 16px; }
   .resume-section { padding: 20px 48px 24px; }
 }
 
@@ -718,7 +718,7 @@ button { font-family: inherit; }
   background: none;
   border: none;
   padding: 0;
-  font-size: 13px;
+  font-size: 19px;
   font-weight: 700;
   color: #fff;
   cursor: pointer;
@@ -744,7 +744,7 @@ button { font-family: inherit; }
 .lcd-flash { animation: lcd-pulse 0.5s ease-out; }
 
 .share-btn {
-  font-size: 11px;
+  font-size: 17px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -772,7 +772,7 @@ button { font-family: inherit; }
   border: none;
   padding: 0;
   color: #fff;
-  font-size: 15px;
+  font-size: 21px;
   font-weight: 700;
   text-align: left;
   cursor: pointer;
@@ -783,14 +783,14 @@ button { font-family: inherit; }
 }
 .game-name:disabled { cursor: default; }
 .edit-hint {
-  font-size: 9px;
+  font-size: 15px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: #9fc0ea;
 }
 
 .final-badge {
-  font-size: 9px;
+  font-size: 15px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -949,7 +949,7 @@ button { font-family: inherit; }
 }
 .dialog-message {
   margin: 0 0 1.1rem;
-  font-size: 13px;
+  font-size: 19px;
   color: #6a90b8;
   line-height: 1.5;
 }
@@ -960,7 +960,7 @@ button { font-family: inherit; }
   border: 2px solid #1a2840;
   padding: 9px 10px;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 19px;
   margin-bottom: 1.1rem;
 }
 .dialog-input:focus { outline: none; border-color: #58e329; }
@@ -1048,7 +1048,7 @@ button { font-family: inherit; }
   background: #fff7d6;
   border: 2px solid var(--yellow);
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--text);
 }
@@ -1064,7 +1064,7 @@ button { font-family: inherit; }
   padding: 4px 10px;
   box-shadow: 2px 2px 0 var(--shadow);
 }
-.player-name { font-size: 11px; font-weight: 700; }
+.player-name { font-size: 17px; font-weight: 700; }
 .player-score {
   font-family: "Courier New", monospace;
   font-size: 12px;
@@ -1091,7 +1091,7 @@ button { font-family: inherit; }
   border: none;
   outline: none;
   background: transparent;
-  font-size: 14px;
+  font-size: 20px;
   font-family: inherit;
   color: var(--text);
   min-width: 0;
@@ -1115,7 +1115,7 @@ button { font-family: inherit; }
 
 .search-status {
   padding: 10px 16px 0;
-  font-size: 11px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--text-secondary);
 }
@@ -1126,7 +1126,7 @@ button { font-family: inherit; }
   background: var(--panel);
   border: 2px dashed var(--border-light);
   border-radius: 5px;
-  font-size: 12.5px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--text-secondary);
 }
@@ -1193,7 +1193,7 @@ main { padding: 0 16px 60px; }
   background: var(--navy);
   border: none;
   color: #fff;
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.07em;
@@ -1218,7 +1218,7 @@ main { padding: 0 16px 60px; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 11px;
+  font-size: 17px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.07em;
@@ -1277,10 +1277,10 @@ main { padding: 0 16px 60px; }
 .card.locked { cursor: default; opacity: 0.92; }
 .card.locked:active { transform: none; }
 
-.card-name { font-size: 12px; font-weight: 700; line-height: 1.3; }
+.card-name { font-size: 18px; font-weight: 700; line-height: 1.3; }
 .card-qual {
   display: block;
-  font-size: 10.5px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--text-secondary);
   margin-top: 2px;
@@ -1325,7 +1325,7 @@ main { padding: 0 16px 60px; }
   position: absolute;
   top: 0;
   right: 0;
-  font-size: 8px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.06em;
   color: #fff;
@@ -1387,7 +1387,7 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
 .profile-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
 .avatar { width: 48px; height: 48px; border: 3px solid #070707; }
 .profile-name { font-family: 'Press Start 2P', monospace; font-size: 11px; color: #fff; line-height: 1.6; }
-.profile-note { font-size: 12px; color: #6a90b8; margin-top: 6px; line-height: 1.5; }
+.profile-note { font-size: 18px; color: #6a90b8; margin-top: 6px; line-height: 1.5; }
 
 .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .stat {
@@ -1424,8 +1424,8 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
 }
 .setting-row:last-child { border-bottom: none; }
 .setting-text { flex: 1; min-width: 0; }
-.setting-label { font-size: 13px; font-weight: 700; color: #fff; }
-.setting-desc { font-size: 11px; color: #6a90b8; margin-top: 2px; }
+.setting-label { font-size: 19px; font-weight: 700; color: #fff; }
+.setting-desc { font-size: 17px; color: #6a90b8; margin-top: 2px; }
 
 .setting-toggle {
   flex-shrink: 0;
@@ -1675,15 +1675,13 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
 }
 
 .cl-deck-hint {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 400;
   opacity: 0.55;
 }
 
 .cl-deck-progress {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 9px;
+  font-size: 15px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -1708,14 +1706,14 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
   background: #12192a;
   border: 3px solid #070707;
   box-shadow: 4px 4px 0 #070707;
-  font-size: 15px;
+  font-size: 21px;
   color: #aec4d8;
   line-height: 1.5;
 }
 .cl-prompt strong { color: #feef02; }
 
 .cl-instructions {
-  font-size: 12px;
+  font-size: 18px;
   color: #6a90b8;
   line-height: 1.5;
 }
@@ -2083,7 +2081,7 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
 
 .tot-intro {
   margin: 0;
-  font-size: 13px;
+  font-size: 19px;
   color: #aec4d8;
   line-height: 1.5;
 }
@@ -2117,7 +2115,7 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
 }
 
 .tot-marathon-desc {
-  font-size: 12px;
+  font-size: 18px;
   color: #6a90b8;
 }
 
@@ -2192,7 +2190,7 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
 }
 
 .tot-cat-count {
-  font-size: 11px;
+  font-size: 17px;
   color: rgba(255, 255, 255, 0.75);
 }
 
@@ -2213,7 +2211,7 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
 }
 
 .tot-bye-note {
-  font-size: 12px;
+  font-size: 18px;
   color: #aec4d8;
   background: #0f1a2e;
   border: 2px solid #1a2840;
@@ -2427,7 +2425,7 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
 }
 
 .tot-winner-blurb {
-  font-size: 13px;
+  font-size: 19px;
   color: #6a90b8;
 }
 
@@ -2464,7 +2462,7 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
 }
 .lu-subtitle {
   margin: 0;
-  font-size: 13px;
+  font-size: 19px;
   color: #6a90b8;
   text-align: center;
   padding: 10px 20px 8px;
@@ -2530,7 +2528,7 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
   color: #6a90b8;
 }
 .lu-card-title {
-  font-size: 13px;
+  font-size: 17px;
   font-weight: 700;
   color: #fff;
   line-height: 1.25;
@@ -2552,7 +2550,7 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
   flex-shrink: 0;
 }
 .lu-item-count {
-  font-size: 10px;
+  font-size: 16px;
   color: #6a90b8;
   font-weight: 600;
 }
@@ -2596,7 +2594,7 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
   margin-bottom: 4px;
 }
 .lu-puzzle-prompt {
-  font-size: 12px;
+  font-size: 18px;
   color: #aec4d8;
   margin-bottom: 8px;
 }
@@ -2665,7 +2663,7 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
 .lu-item-wrong .lu-rank { background: #c62828; color: #fff; border-color: #070707; }
 .lu-label {
   flex: 1;
-  font-size: 13px;
+  font-size: 19px;
   font-weight: 600;
   color: #fff;
   line-height: 1.3;
@@ -2687,12 +2685,12 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
 }
 .lu-hint {
   margin: 0;
-  font-size: 12px;
+  font-size: 18px;
   color: #6a90b8;
   text-align: center;
 }
 .lu-reveal-btn {
-  font-size: 12px;
+  font-size: 18px;
   color: #6a90b8;
 }
 
@@ -2723,7 +2721,7 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
 
 .www-intro {
   margin: 0;
-  font-size: 13px;
+  font-size: 19px;
   color: #6a90b8;
   line-height: 1.5;
 }
@@ -2758,7 +2756,7 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
 }
 
 .www-cat-count {
-  font-size: 12px;
+  font-size: 18px;
   color: #6a90b8;
 }
 
@@ -2902,7 +2900,7 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
 }
 
 .www-stat-name {
-  font-size: 9px;
+  font-size: 15px;
   color: #feef02;
   flex: 1;
   overflow: hidden;
@@ -2939,7 +2937,7 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
 }
 
 .www-card-superlative {
-  font-size: 9px;
+  font-size: 15px;
   color: #6a90b8;
   line-height: 1.3;
 }
@@ -2968,7 +2966,7 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
 }
 
 .www-result-picked {
-  font-size: 13px;
+  font-size: 19px;
   color: #aec4d8;
   text-align: center;
 }
@@ -3011,7 +3009,7 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
 }
 
 .www-vote-source {
-  font-size: 11px;
+  font-size: 17px;
   color: #6a90b8;
   text-align: center;
   flex-shrink: 0;
