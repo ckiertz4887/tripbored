@@ -1562,14 +1562,14 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
   justify-content: center;
   gap: 10px;
   padding: 20px 14px;
-  background-color: var(--navy);
+  background-color: #0a1628;
   background-image:
-    repeating-linear-gradient(45deg, rgba(255,255,255,0.07) 0 2px, transparent 2px 11px),
-    repeating-linear-gradient(-45deg, rgba(255,255,255,0.07) 0 2px, transparent 2px 11px);
+    repeating-linear-gradient(0deg, transparent 0px, transparent 7px, rgba(88,227,41,0.07) 7px, rgba(88,227,41,0.07) 8px),
+    repeating-linear-gradient(90deg, transparent 0px, transparent 7px, rgba(88,227,41,0.07) 7px, rgba(88,227,41,0.07) 8px);
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.35),
-    inset 0 0 0 7px var(--navy),
-    inset 0 0 0 8px rgba(255, 255, 255, 0.35);
+    inset 0 0 0 3px #3a6ea8,
+    inset 0 0 0 7px #0a1628,
+    inset 0 0 0 10px rgba(58,110,168,0.35);
   color: #fff;
   transition: background-color 0.15s ease, box-shadow 0.15s ease;
 }
@@ -1582,18 +1582,27 @@ mark { background: var(--yellow); color: var(--text); padding: 0 1px; border-rad
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-color: var(--navy);
+  background-color: #0a1628;
   background-image:
-    repeating-linear-gradient(45deg, rgba(255,255,255,0.07) 0 2px, transparent 2px 11px),
-    repeating-linear-gradient(-45deg, rgba(255,255,255,0.07) 0 2px, transparent 2px 11px);
+    repeating-linear-gradient(0deg, transparent 0px, transparent 7px, rgba(88,227,41,0.07) 7px, rgba(88,227,41,0.07) 8px),
+    repeating-linear-gradient(90deg, transparent 0px, transparent 7px, rgba(88,227,41,0.07) 7px, rgba(88,227,41,0.07) 8px);
   border-radius: 0;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35), inset 0 0 0 7px var(--navy), inset 0 0 0 8px rgba(255, 255, 255, 0.35);
+  box-shadow: inset 0 0 0 3px #3a6ea8, inset 0 0 0 7px #0a1628, inset 0 0 0 10px rgba(58,110,168,0.35);
 }
 .cl-deck::before { transform: rotate(-5deg) translate(-5px, 4px); }
 .cl-deck::after { transform: rotate(4deg) translate(6px, 5px); }
 
+.cl-deck-letter .cl-deck-face {
+  box-shadow:
+    inset 0 0 0 3px #2f9e4f,
+    inset 0 0 0 7px #0a1628,
+    inset 0 0 0 10px rgba(47,158,79,0.3);
+}
 .cl-deck-letter::before,
-.cl-deck-letter::after { background-color: var(--navy-dark); }
+.cl-deck-letter::after {
+  background-color: #070f1c;
+  box-shadow: inset 0 0 0 3px #2f9e4f, inset 0 0 0 7px #0a1628, inset 0 0 0 10px rgba(47,158,79,0.3);
+}
 
 .cl-deck:active { transform: translate(1px, 2px); }
 
