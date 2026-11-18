@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import twemoji from "@twemoji/api";
 import { AuthProvider, useAuth } from "./lib/auth";
 import { useSettings, applyTheme } from "./lib/settings";
 import { Home } from "./pages/Home";
@@ -12,9 +13,31 @@ import { ThisOrThat } from "./pages/ThisOrThat";
 import { LineUp } from "./pages/LineUp";
 import { WhoWouldWin } from "./pages/WhoWouldWin";
 
+const TWEMOJI_OPTS = {
+  base: "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/",
+};
+
 function ThemeSync() {
   const { settings } = useSettings();
   useEffect(() => { applyTheme(settings.darkMode); }, [settings.darkMode]);
+  return null;
+}
+
+function EmojiSync() {
+  useEffect(() => {
+    twemoji.parse(document.body, TWEMOJI_OPTS);
+    const observer = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        for (const node of m.addedNodes) {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            twemoji.parse(node as Element, TWEMOJI_OPTS);
+          }
+        }
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, []);
   return null;
 }
 
@@ -28,6 +51,7 @@ export default function App() {
   return (
     <AuthProvider>
       <ThemeSync />
+      <EmojiSync />
       <BrowserRouter>
         <Gate>
           <Routes>
