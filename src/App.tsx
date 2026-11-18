@@ -30,7 +30,7 @@ function EmojiSync() {
       for (const m of mutations) {
         for (const node of m.addedNodes) {
           if (node.nodeType === Node.ELEMENT_NODE) {
-            twemoji.parse(node as Element, TWEMOJI_OPTS);
+            twemoji.parse(node as HTMLElement, TWEMOJI_OPTS);
           }
         }
       }
